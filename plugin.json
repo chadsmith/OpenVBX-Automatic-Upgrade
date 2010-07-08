@@ -1,0 +1,12 @@
+{
+	"name" : "Automatic Upgrade",
+	"author" : "Chad Smith <chad@nospam.me>",
+	"description" : "One click updates for OpenVBX.",
+	"url" : "http://twitter.com/chadsmith",
+	"links" : [{
+		"menu" : "System",
+		"url" : "upgrade",
+		"script" : "upgrade.php",
+		"label" : "Automatic Upgrade"
+	}]
+}
