@@ -9,7 +9,7 @@ if(!is_writable($root))
 if(!is_writable($tmp))
 	die($tmp.' must be writable by '.get_current_user());
 $zip=$tmp.'zip';
-file_put_contents($zip,file_get_contents('http://github.com/twilio/OpenVBX/zipball/master'));
+file_put_contents($zip,file_get_contents('https://github.com/twilio/OpenVBX/zipball/master'));
 $z=new ZipArchive;
 if(true===$z->open($zip)){
     $z->extractTo($tmp);
