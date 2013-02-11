@@ -11,7 +11,7 @@ if(!is_writable($tmp))
 if(!class_exists('ZipArchive'))
 	die('The ZipArchive Class must be inststalled to use this plugin.');
 $zip=$tmp.'zip';
-file_put_contents($zip,file_get_contents('https://github.com/twilio/OpenVBX/zipball/master'));
+file_put_contents($zip,file_get_contents('https://nodeload.github.com/twilio/OpenVBX/zip/master'));
 $z=new ZipArchive;
 if(true===$z->open($zip)){
     $z->extractTo($tmp);
