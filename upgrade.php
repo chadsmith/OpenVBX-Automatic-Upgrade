@@ -8,6 +8,8 @@ if(!is_writable($root))
 	die($root.' must be writable by '.get_current_user());
 if(!is_writable($tmp))
 	die($tmp.' must be writable by '.get_current_user());
+if(!class_exists('ZipArchive'))
+	die('The ZipArchive Class must be inststalled to use this plugin.');
 $zip=$tmp.'zip';
 file_put_contents($zip,file_get_contents('https://github.com/twilio/OpenVBX/zipball/master'));
 $z=new ZipArchive;
