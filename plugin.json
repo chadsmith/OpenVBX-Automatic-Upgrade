@@ -1,7 +1,7 @@
 {
 	"name" : "Automatic Upgrade",
 	"author" : "Chad Smith <chad@nospam.me>",
-	"description" : "One click updates for OpenVBX.",
+	"description" : "One-click updates for OpenVBX.",
 	"url" : "http://twitter.com/chadsmith",
 	"links" : [{
 		"menu" : "System",

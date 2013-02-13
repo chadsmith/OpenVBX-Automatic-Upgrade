@@ -5,6 +5,7 @@ if(!class_exists('ZipArchive') && !class_exists('Phar'))
   die('The <a href="http://www.php.net/manual/en/book.zip.php">ZipArchive</a> or <a href="http://www.php.net/manual/en/book.phar.php">Phar</a> class must be installed to use this plugin.');
 $cwd = dirname(__FILE__);
 $tmp = $cwd . '/tmp/';
+mkdir($tmp, 2775);
 $root = dirname(dirname($cwd));
 if(!is_writable($root))
 	die($root . ' must be writable by ' . get_current_user());
