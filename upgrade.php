@@ -1,18 +1,18 @@
 <?php
 if(!OpenVBX::isAdmin())
 	die();
-if(!class_exists('ZipArchive') && !class_exists('Phar'))
-  die('The <a href="http://www.php.net/manual/en/book.zip.php">ZipArchive</a> or <a href="http://www.php.net/manual/en/book.phar.php">Phar</a> class must be installed to use this plugin.');
+if(!class_exists('ZipArchive') && !class_exists('Archive_Tar'))
+  die('The <a href="http://www.php.net/manual/en/book.zip.php">ZipArchive</a> or <a href="http://pear.php.net/package/Archive_Tar/">Archive_Tar</a> class must be installed to use this plugin.');
 $cwd = dirname(__FILE__);
-$tmp = $cwd . '/tmp/';
-mkdir($tmp, 2775);
+if(!is_writable($cwd))
+	die($cwd . ' must be writable by ' . get_current_user());
 $root = dirname(dirname($cwd));
 if(!is_writable($root))
 	die($root . ' must be writable by ' . get_current_user());
-if(!is_writable($tmp))
-	die($tmp . ' must be writable by ' . get_current_user());
-$archive = $tmp . 'archive';
+$tmp = $cwd . '/tmp/';
+mkdir($tmp);
 if(class_exists('ZipArchive')) {
+  $archive = $tmp . 'OpenVBX.zip';
   file_put_contents($archive, file_get_contents('https://github.com/twilio/OpenVBX/zipball/master'));
   $z = new ZipArchive;
   if(true === $z->open($archive)) {
@@ -24,9 +24,10 @@ if(class_exists('ZipArchive')) {
     die('Upgrade failed.');
 }
 else {
+  $archive = $tmp . 'OpenVBX.tar.gz';
   file_put_contents($archive, file_get_contents('https://github.com/twilio/OpenVBX/tarball/master'));
-  $p = new Phar($archive);
-  if(true === $p->extractTo($tmp))
+  $a = new Archive_Tar($archive);
+  if(true === $a->extract($tmp))
     unlink($archive);
   else
     die('Upgrade failed.');
@@ -35,7 +36,7 @@ $d = dir($tmp);
 while($file = $d->read())
 	if(!in_array($file, array('.', '..'))) {
 		mvdir($tmp . $file, $root);
-		rmall($tmp . $file);
+		rmall($tmp);
 	}
 $d->close();
 die('Success!');
